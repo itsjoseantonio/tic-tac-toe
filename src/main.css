@@ -1,0 +1,62 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: #eee;
+}
+
+#app {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.table {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 300px;
+    width: 100%;
+    height: 300px;
+}
+
+.square {
+    width: 33%;
+    border: 3px solid #fff;
+    color: #fff;
+    background-color: rgb(45, 60, 110);
+    cursor: pointer;
+    position: relative;
+    font-family: monospace;
+}
+
+.square.x {
+    pointer-events: none;
+}
+
+.square.o {
+    pointer-events: none;
+}
+
+.square.o::after {
+    content: 'o';
+}
+
+.square.x::after {
+    content: 'x';
+}
+
+.square.x::after,
+.square.o::after {
+    display: block;
+    position: absolute;
+    font-size: 32px;
+    left: 50%;
+    top: 50%;
+    line-height: 24px;
+    margin-left: -9px;
+    margin-top: -12px;
+}
