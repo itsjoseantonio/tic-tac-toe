@@ -14,6 +14,7 @@ const players = function (name, status, sign, box) {
         displayMark,
         name,
         status,
+        sign,
         moves,
         wins,
         box,
@@ -22,13 +23,15 @@ const players = function (name, status, sign, box) {
 
 const gameBoard = (function () {
     const square = document.querySelectorAll('.square');
+    const turn = document.querySelector('.turnPlayer');
+    const popup = document.querySelector('.popup-winner');
+    const box = document.querySelectorAll('.box');
     const pointsX = document.getElementById('pointsX');
     const pointsO = document.getElementById('pointsO');
-    const player1 = players('Jose', true, 'x', pointsX);
-    const player2 = players('Antonio', false, 'o', pointsO);
-
+    const playerX = players('Jose', true, 'x', pointsX);
+    const playerO = players('Antonio', false, 'o', pointsO);
     let currentPlayer;
-    currentPlayer = player1;
+    currentPlayer = playerX;
 
     const winsConditions = [
         [0, 1, 2],
@@ -41,12 +44,28 @@ const gameBoard = (function () {
         [2, 4, 6],
     ];
 
-    const changePlayer = function () {
-        if (currentPlayer == player1) currentPlayer = player2;
-        else if (currentPlayer == player2) currentPlayer = player1;
+    const _setPlayer = function (player) {
+        const currentBox = player.box.parentElement;
+        box.forEach((ele) => ele.classList.remove('active'));
+        currentBox.classList.add('active');
+        turn.textContent = player.sign;
     };
 
-    const displayWin = function () {};
+    const _displayWin = function (player) {
+        popup.classList.add('showed');
+        const span = popup.querySelector('span');
+        span.textContent = player.sign;
+    };
+
+    const changePlayer = function () {
+        if (currentPlayer == playerX) {
+            currentPlayer = playerO;
+            _setPlayer(currentPlayer);
+        } else if (currentPlayer == playerO) {
+            currentPlayer = playerX;
+            _setPlayer(currentPlayer);
+        }
+    };
 
     const matchWin = function (arr) {
         let match = false;
@@ -56,6 +75,7 @@ const gameBoard = (function () {
                 if (match) {
                     currentPlayer.wins++;
                     currentPlayer.box.textContent = currentPlayer.wins;
+                    _displayWin(currentPlayer);
                 }
             }
         return match;

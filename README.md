@@ -1,4 +1,4 @@
-# Virtual Library
+# Tic tac toe
 
 ### [Live Demo](https://itsjoseantonio.github.io/tic-tac-toe/)
 

@@ -9,7 +9,7 @@
 <body>
     <div id="app">
         <div class="players">
-            <div class="box">
+            <div class="box active">
                 <span>X</span>
                 <span id="pointsX">-</span>
             </div>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="turn">
-            <p><span class="turnPlayer"></span> turn</p>
+            <p><span class="turnPlayer">X</span> turn</p>
         </div>
         <div class="table">
             <div class="square"></div>
@@ -31,6 +31,10 @@
             <div class="square"></div>
             <div class="square"></div>
             <div class="square"></div>
+            <div class="popup-winner">
+                <span></span>
+                WINNER!
+            </div>
         </div>
     </div>
     <script src="src/script.js"></script>
