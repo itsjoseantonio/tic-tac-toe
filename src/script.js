@@ -1,4 +1,4 @@
-const players = function (name, status, sign) {
+const players = function (name, status, sign, box) {
     const moves = [];
     const wins = 0;
     const mark = function (value) {
@@ -16,13 +16,16 @@ const players = function (name, status, sign) {
         status,
         moves,
         wins,
+        box,
     };
 };
 
 const gameBoard = (function () {
     const square = document.querySelectorAll('.square');
-    const player1 = players('Jose', true, 'x');
-    const player2 = players('Antonio', false, 'o');
+    const pointsX = document.getElementById('pointsX');
+    const pointsO = document.getElementById('pointsO');
+    const player1 = players('Jose', true, 'x', pointsX);
+    const player2 = players('Antonio', false, 'o', pointsO);
 
     let currentPlayer;
     currentPlayer = player1;
@@ -43,6 +46,8 @@ const gameBoard = (function () {
         else if (currentPlayer == player2) currentPlayer = player1;
     };
 
+    const displayWin = function () {};
+
     const matchWin = function (arr) {
         let match = false;
         if (arr.length >= 3)
@@ -50,7 +55,7 @@ const gameBoard = (function () {
                 match = winsConditions[i].every((item) => arr.includes(item));
                 if (match) {
                     currentPlayer.wins++;
-                    break;
+                    currentPlayer.box.textContent = currentPlayer.wins;
                 }
             }
         return match;
