@@ -1,5 +1,6 @@
 const players = function (name, status, sign) {
     const moves = [];
+    const wins = 0;
     const mark = function (value) {
         moves.push(value);
     };
@@ -11,8 +12,10 @@ const players = function (name, status, sign) {
     return {
         mark,
         displayMark,
+        name,
         status,
         moves,
+        wins,
     };
 };
 
@@ -40,12 +43,26 @@ const gameBoard = (function () {
         else if (currentPlayer == player2) currentPlayer = player1;
     };
 
+    const matchWin = function (arr) {
+        let match = false;
+        if (arr.length >= 3)
+            for (let i = 0; i < winsConditions.length; i++) {
+                match = winsConditions[i].every((item) => arr.includes(item));
+                if (match) {
+                    currentPlayer.wins++;
+                    break;
+                }
+            }
+        return match;
+    };
+
     const play = function () {
         square.forEach(function (item, index) {
             item.addEventListener('click', function () {
                 currentPlayer.mark(index);
                 currentPlayer.displayMark(item);
-                console.log(currentPlayer.moves, currentPlayer);
+                matchWin(currentPlayer.moves);
+                console.log(currentPlayer.name, ': ', currentPlayer.wins);
                 changePlayer();
             });
         });
@@ -53,6 +70,7 @@ const gameBoard = (function () {
 
     const init = function () {
         play();
+        // matchWin();
     };
 
     return {
