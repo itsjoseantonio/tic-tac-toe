@@ -86,7 +86,6 @@ const gameBoard = (function () {
                     playerO.moves.splice(0, playerO.moves.length);
                 }
             }
-        console.log(arr, currentPlayer.name + ' ARRAY');
         return match;
     };
 
@@ -103,7 +102,6 @@ const gameBoard = (function () {
 
     const init = function () {
         play();
-        // restartGame();
         button.addEventListener('click', restartGame);
     };
 

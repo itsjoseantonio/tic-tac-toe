@@ -15,7 +15,7 @@ body {
     justify-content: center;
     height: 100vh;
     flex-direction: column;
-    font-family: monospace;
+    font-family: 'Mali', cursive;
 }
 
 .table {
@@ -57,12 +57,13 @@ body {
 .square.o::after {
     display: block;
     position: absolute;
-    font-size: 32px;
+    font-size: 64px;
     left: 50%;
-    top: 50%;
-    line-height: 24px;
-    margin-left: -9px;
-    margin-top: -12px;
+    top: 0;
+    margin-left: -16px;
+    margin-top: 0;
+    height: 100%;
+    line-height: 72px;
 }
 
 .players {
@@ -138,4 +139,5 @@ body {
     max-width: 300px;
     width: 100%;
     cursor: pointer;
+    font-family: 'Mali', cursive;
 }
