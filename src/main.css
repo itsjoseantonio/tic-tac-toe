@@ -100,7 +100,8 @@ body {
     font-weight: bold;
 }
 
-.popup-winner {
+.popup-winner,
+.popup-tie {
     position: absolute;
     left: 0;
     right: 0;
@@ -119,13 +120,15 @@ body {
     transform: scale(0.9);
 }
 
-.popup-winner.showed {
+.popup-winner.showed,
+.popup-tie.showed {
     opacity: 1;
     visibility: visible;
     transform: scale(1);
 }
 
-.popup-winner span {
+.popup-winner span,
+.popup-tie span {
     font-size: 80px;
 }
 

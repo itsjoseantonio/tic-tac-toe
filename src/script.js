@@ -1,4 +1,4 @@
-const players = function (name, status, sign, box) {
+const players = function (name, sign, box) {
     const moves = [];
     const wins = 0;
     const mark = function (value) {
@@ -13,7 +13,6 @@ const players = function (name, status, sign, box) {
         mark,
         displayMark,
         name,
-        status,
         sign,
         moves,
         wins,
@@ -25,12 +24,15 @@ const gameBoard = (function () {
     const square = document.querySelectorAll('.square');
     const turn = document.querySelector('.turnPlayer');
     const popup = document.querySelector('.popup-winner');
+    const popupTie = document.querySelector('.popup-tie');
     const box = document.querySelectorAll('.box');
     const button = document.querySelector('.button-restart');
     const pointsX = document.getElementById('pointsX');
     const pointsO = document.getElementById('pointsO');
-    let playerX = players('Jose', true, 'x', pointsX);
-    let playerO = players('Antonio', false, 'o', pointsO);
+    let times = 0;
+    let match = false;
+    let playerX = players('Jose', 'x', pointsX);
+    let playerO = players('Antonio', 'o', pointsO);
     let currentPlayer;
     currentPlayer = playerX;
 
@@ -58,9 +60,27 @@ const gameBoard = (function () {
         span.textContent = player.sign;
     };
 
+    const _displayTie = function (times) {
+        if (times >= 9 && !match) {
+            popupTie.classList.add('showed');
+            console.log(times, match);
+            playerX.moves.splice(0, playerX.moves.length);
+            playerO.moves.splice(0, playerO.moves.length);
+        } else if (times >= 9 && match) {
+            popup.classList.add('showed');
+            console.log(times, match);
+            playerX.moves.splice(0, playerX.moves.length);
+            playerO.moves.splice(0, playerO.moves.length);
+        }
+    };
+
     const restartGame = function () {
+        playerX.moves.splice(0, playerX.moves.length);
+        playerO.moves.splice(0, playerO.moves.length);
         square.forEach((ele) => ele.classList.remove('x', 'o'));
         popup.classList.remove('showed');
+        popupTie.classList.remove('showed');
+        times = 0;
     };
 
     const changePlayer = function () {
@@ -74,7 +94,6 @@ const gameBoard = (function () {
     };
 
     const matchWin = function (arr) {
-        let match = false;
         if (arr.length >= 3)
             for (let i = 0; i < winsConditions.length; i++) {
                 match = winsConditions[i].every((item) => arr.includes(item));
@@ -86,15 +105,18 @@ const gameBoard = (function () {
                     playerO.moves.splice(0, playerO.moves.length);
                 }
             }
+        console.log(currentPlayer.name, currentPlayer.moves);
         return match;
     };
 
     const play = function () {
         square.forEach(function (item, index) {
             item.addEventListener('click', function () {
+                times++;
                 currentPlayer.mark(index);
                 currentPlayer.displayMark(item);
                 matchWin(currentPlayer.moves);
+                _displayTie(times);
                 changePlayer();
             });
         });
