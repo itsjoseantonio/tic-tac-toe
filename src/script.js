@@ -26,10 +26,11 @@ const gameBoard = (function () {
     const turn = document.querySelector('.turnPlayer');
     const popup = document.querySelector('.popup-winner');
     const box = document.querySelectorAll('.box');
+    const button = document.querySelector('.button-restart');
     const pointsX = document.getElementById('pointsX');
     const pointsO = document.getElementById('pointsO');
-    const playerX = players('Jose', true, 'x', pointsX);
-    const playerO = players('Antonio', false, 'o', pointsO);
+    let playerX = players('Jose', true, 'x', pointsX);
+    let playerO = players('Antonio', false, 'o', pointsO);
     let currentPlayer;
     currentPlayer = playerX;
 
@@ -57,6 +58,13 @@ const gameBoard = (function () {
         span.textContent = player.sign;
     };
 
+    const restartGame = function () {
+        button.addEventListener('click', function (e) {
+            square.forEach((ele) => ele.classList.remove('x', 'o'));
+            popup.classList.remove('showed');
+        });
+    };
+
     const changePlayer = function () {
         if (currentPlayer == playerX) {
             currentPlayer = playerO;
@@ -76,8 +84,10 @@ const gameBoard = (function () {
                     currentPlayer.wins++;
                     currentPlayer.box.textContent = currentPlayer.wins;
                     _displayWin(currentPlayer);
+                    currentPlayer.moves = [];
                 }
             }
+        console.log(arr, currentPlayer.name + ' ARRAY');
         return match;
     };
 
@@ -88,6 +98,7 @@ const gameBoard = (function () {
                 currentPlayer.displayMark(item);
                 matchWin(currentPlayer.moves);
                 console.log(currentPlayer.name, ': ', currentPlayer.wins);
+                console.log(currentPlayer.name, ': ', currentPlayer.moves);
                 changePlayer();
             });
         });
@@ -95,7 +106,7 @@ const gameBoard = (function () {
 
     const init = function () {
         play();
-        // matchWin();
+        restartGame();
     };
 
     return {
