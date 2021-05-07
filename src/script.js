@@ -45,7 +45,7 @@ const gameBoard = (function () {
         [2, 4, 6],
     ];
 
-    const _setPlayer = function (player) {
+    const _selectPlayer = function (player) {
         const currentBox = player.box.parentElement;
         box.forEach((ele) => ele.classList.remove('active'));
         currentBox.classList.add('active');
@@ -59,19 +59,17 @@ const gameBoard = (function () {
     };
 
     const restartGame = function () {
-        button.addEventListener('click', function (e) {
-            square.forEach((ele) => ele.classList.remove('x', 'o'));
-            popup.classList.remove('showed');
-        });
+        square.forEach((ele) => ele.classList.remove('x', 'o'));
+        popup.classList.remove('showed');
     };
 
     const changePlayer = function () {
         if (currentPlayer == playerX) {
             currentPlayer = playerO;
-            _setPlayer(currentPlayer);
+            _selectPlayer(currentPlayer);
         } else if (currentPlayer == playerO) {
             currentPlayer = playerX;
-            _setPlayer(currentPlayer);
+            _selectPlayer(currentPlayer);
         }
     };
 
@@ -84,7 +82,8 @@ const gameBoard = (function () {
                     currentPlayer.wins++;
                     currentPlayer.box.textContent = currentPlayer.wins;
                     _displayWin(currentPlayer);
-                    currentPlayer.moves = [];
+                    playerX.moves.splice(0, playerX.moves.length);
+                    playerO.moves.splice(0, playerO.moves.length);
                 }
             }
         console.log(arr, currentPlayer.name + ' ARRAY');
@@ -97,8 +96,6 @@ const gameBoard = (function () {
                 currentPlayer.mark(index);
                 currentPlayer.displayMark(item);
                 matchWin(currentPlayer.moves);
-                console.log(currentPlayer.name, ': ', currentPlayer.wins);
-                console.log(currentPlayer.name, ': ', currentPlayer.moves);
                 changePlayer();
             });
         });
@@ -106,7 +103,8 @@ const gameBoard = (function () {
 
     const init = function () {
         play();
-        restartGame();
+        // restartGame();
+        button.addEventListener('click', restartGame);
     };
 
     return {
