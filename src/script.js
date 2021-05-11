@@ -60,23 +60,23 @@ const gameBoard = (function () {
         span.textContent = player.sign;
     };
 
+    const _clearMoves = function () {
+        playerX.moves.splice(0, playerX.moves.length);
+        playerO.moves.splice(0, playerO.moves.length);
+    };
+
     const _displayTie = function (times) {
         if (times >= 9 && !match) {
             popupTie.classList.add('showed');
-            console.log(times, match);
-            playerX.moves.splice(0, playerX.moves.length);
-            playerO.moves.splice(0, playerO.moves.length);
+            _clearMoves();
         } else if (times >= 9 && match) {
             popup.classList.add('showed');
-            console.log(times, match);
-            playerX.moves.splice(0, playerX.moves.length);
-            playerO.moves.splice(0, playerO.moves.length);
+            _clearMoves();
         }
     };
 
     const restartGame = function () {
-        playerX.moves.splice(0, playerX.moves.length);
-        playerO.moves.splice(0, playerO.moves.length);
+        _clearMoves();
         square.forEach((ele) => ele.classList.remove('x', 'o'));
         popup.classList.remove('showed');
         popupTie.classList.remove('showed');
@@ -101,11 +101,9 @@ const gameBoard = (function () {
                     currentPlayer.wins++;
                     currentPlayer.box.textContent = currentPlayer.wins;
                     _displayWin(currentPlayer);
-                    playerX.moves.splice(0, playerX.moves.length);
-                    playerO.moves.splice(0, playerO.moves.length);
+                    _clearMoves();
                 }
             }
-        console.log(currentPlayer.name, currentPlayer.moves);
         return match;
     };
 
