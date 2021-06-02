@@ -94,7 +94,7 @@ const gameBoard = (function () {
     };
 
     const matchWin = function (arr) {
-        if (arr.length >= 3)
+        if (arr.length >= 3) {
             for (let i = 0; i < winsConditions.length; i++) {
                 match = winsConditions[i].every((item) => arr.includes(item));
                 if (match) {
@@ -104,6 +104,7 @@ const gameBoard = (function () {
                     _clearMoves();
                 }
             }
+        }
         return match;
     };
 
